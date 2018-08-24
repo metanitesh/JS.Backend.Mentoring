@@ -35,7 +35,11 @@ var resultObj = {
     }
 }
 
-function getFile(file) {
+var resultArr = [];
+
+function getFile(file, callback) {
+
+
 	fakeAjax(file,function(url, val){
         
         resultObj[url].text = val;
@@ -43,7 +47,7 @@ function getFile(file) {
 
         if(resultObj['file1']['text'] !== '' && (!resultObj['file1']['done'])){
             
-            output(resultObj.file1.text)
+            resultArr.push(resultObj.file1.text);
             resultObj['file1']['done'] = true;
             
         }
@@ -54,7 +58,7 @@ function getFile(file) {
 
         if(resultObj['file2']['text'] !== '' && (!resultObj['file2']['done'])){
             
-            output(resultObj.file2.text)
+            resultArr.push(resultObj.file2.text);
             resultObj['file2']['done'] = true;
             
         }
@@ -64,15 +68,31 @@ function getFile(file) {
         }
 
         if(resultObj['file3']['text'] !== '' && (!resultObj['file3']['done'])){
-            output(resultObj.file3.text)
+            resultArr.push(resultObj.file3.text);
             resultObj['file3']['done'] = true;
             
         }
+
+        if(resultObj['file3']['done']){
+            callback(resultArr);
+        }
         
 
-	});
+    });
+    
+    
 }
 
-getFile("file1");
-getFile("file2");
-getFile("file3");
+
+function makeCall(callback){
+    getFile("file1", callback);
+    getFile("file2", callback);
+    getFile("file3", callback);
+
+
+}
+
+module.exports = {
+    fakeAjax: fakeAjax,
+    makeCall: makeCall
+}
