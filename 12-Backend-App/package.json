@@ -1,0 +1,33 @@
+{
+  "name": "12-backend-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "npm-run-all start-app",
+    "eslintwatch": "esw --watch src",
+    "start-app": "nodemon src/app.js",
+    "eslint-fix": "eslint --fix",
+    "create-db": "node src/migrations/createDb.js",
+    "create-book-table": "node src/migrations/createBookTable.js",
+    "create-author-table": "node src/migrations/createAuthorTable",
+    "insert-book-records": "node src/migrations/insertBookRecord.js",
+    "insert-author-records": "node src/migrations/insertAuthorRecord.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mysql2": "^1.6.1",
+    "mysql2-promise": "^0.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "npm-run-all": "^3.1.1"
+  }
+}

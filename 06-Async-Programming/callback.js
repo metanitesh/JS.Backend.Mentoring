@@ -9,7 +9,8 @@ function fakeAjax(url,cb) {
 	console.log("Requesting: " + url);
 
 	setTimeout(function(){
-		cb(url, fake_responses[url]);
+        cb(url, fake_responses[url]);
+        cb(url, fake_responses[url]);
 	},randomDelay);
 }
 

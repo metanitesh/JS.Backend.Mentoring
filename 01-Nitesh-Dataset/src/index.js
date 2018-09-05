@@ -6,8 +6,30 @@ const csv = require('csvtojson')
 csv()
     .fromFile(csvFilePath)
     .then((jsonObj) => {
-        console.log(dataApi.getMatchPlayedPerYear(jsonObj))
+        // console.log(jsonObj);
+        // 
+        
+        var n = 1000;
+        var arr = [];
+        console.time("n")
+        for(var i=0; i<n; i++){
+            arr.push(i)
+        }
+        console.time("n")
 
+
+        var n = 1000*100;
+        var arr = [];
+        console.time("n*100")
+        for(var i=0; i<n; i++){
+            arr.push(i)
+        }
+        console.time("n*100")
+
+
+
+
+    
         /**
          * [
          * 	{a:"1", b:"2", c:"3"},
