@@ -12,6 +12,7 @@ function router() {
   });
 
   bookRouter.get('/:id', async (req, res) => {
+    console.log(req.params.id);
     const book = await getBookById(req.params.id);
     console.log(book[0]);
     res.render('book', {

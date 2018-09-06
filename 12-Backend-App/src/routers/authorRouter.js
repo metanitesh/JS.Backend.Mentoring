@@ -1,16 +1,24 @@
 const express = require('express');
-const { getAllBooks } = require('../controllers/bookController');
+const { getAllAuthors, getAuthorById } = require('../controllers/authorController');
 
-const bookRouter = express.Router();
+const authorRoute = express.Router();
 
 function router() {
-  bookRouter.get('/', async (req, res) => {
-    const books = await getAllBooks();
-    res.render('books', {
-      books: books[0],
+  authorRoute.get('/', async (req, res) => {
+    const authors = await getAllAuthors();
+    res.render('authors', {
+      authors: authors[0],
     });
   });
-  return bookRouter;
+
+  authorRoute.get('/:id', async (req, res) => {
+    const author = await getAuthorById(req.params.id);
+    console.log(author[0]);
+    res.render('author', {
+      author: author[0][0],
+    });
+  });
+  return authorRoute;
 }
 
 module.exports = router;
