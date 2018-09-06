@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 const bcrypt = require('bcrypt');
 
 
-async function signupUser(data) {
+async function signup(data) {
   const { username, password } = data;
   const url = 'mongodb://localhost:27017';
   const dbName = 'mountblue-users';
@@ -43,4 +43,54 @@ async function signupUser(data) {
   }
 }
 
-module.exports = signupUser;
+async function signin(data) {
+  console.log(data);
+  const { username, password } = data;
+  const url = 'mongodb://localhost:27017';
+  const dbName = 'mountblue-users';
+
+  let user;
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const col = await db.collection('users');
+
+    user = await col.findOne({
+      username,
+    });
+
+    if (!user) {
+      return {
+        message: 'user not found',
+      };
+    }
+
+    if (user) {
+      const result = bcrypt.compareSync(password, user.hashPassword);
+
+      if (!result) {
+        return {
+          message: 'incorrect password',
+        };
+      }
+
+      return {
+        user: user.username,
+        id: user._id,
+        message: 'user loggedin'
+      };
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  return {
+    message: 'failed',
+  };
+}
+
+module.exports = {
+  signup,
+  signin,
+};
