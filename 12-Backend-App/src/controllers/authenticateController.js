@@ -77,10 +77,9 @@ async function signin(data) {
       return {
         user: user.username,
         id: user._id,
-        message: 'user loggedin'
+        message: 'user loggedin',
       };
     }
-
   } catch (error) {
     console.log(error);
   }

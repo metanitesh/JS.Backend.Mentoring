@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const { signin, signup } = require('../controllers/authenticateController');
 
 
@@ -12,15 +13,19 @@ function router() {
 
   signupRouter.post('/signin', async (req, res) => {
     const result = await signin(req.body);
-    console.log("sd", result);
+    let token;
     if (result.user) {
-      req.session.user = result;
+      token = jwt.sign({ user: result }, 'mountblue');
+      res.cookie('JWT', token, { maxAge: 900000 });
+    } else {
+      res.cookie('JWT', 'invalid', { maxAge: -1000 });
     }
-    res.redirect(`/?message=${result.message}`);
+    res.redirect(`/?message=${token}`);
   });
 
   signupRouter.post('/logout', async (req, res) => {
-    req.session.destroy();
+    req.user = undefined;
+    res.cookie('JWT', 'invalid', { maxAge: -1000 });
     res.redirect('/');
   });
 

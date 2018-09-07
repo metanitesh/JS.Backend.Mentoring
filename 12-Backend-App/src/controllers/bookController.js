@@ -18,8 +18,6 @@ async function getAllBooks() {
     console.log(err);
     connection.close();
   }
-
-  console.log(books);
   connection.close();
   return books;
 }
@@ -32,9 +30,7 @@ async function getBookById(id) {
   });
 
   console.log('connection made');
-//   console.log(id);
   const sql = `SELECT books.id, books.title, books.description, authors.title as author FROM books, authors WHERE books.authorId = authors.id AND books.id = ${id} LIMIT 1`;
-//   console.log(sql);
   let books;
 
   try {
@@ -44,7 +40,7 @@ async function getBookById(id) {
     connection.close();
   }
 
-//   console.log(books);
+  //   console.log(books);
   connection.close();
   return books;
 }

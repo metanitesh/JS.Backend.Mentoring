@@ -13,7 +13,7 @@ function router() {
 
   authorRoute.get('/:id', async (req, res) => {
     const author = await getAuthorById(req.params.id);
-    console.log(author[0]);
+    // console.log(author[0]);
     res.render('author', {
       author: author[0][0],
     });

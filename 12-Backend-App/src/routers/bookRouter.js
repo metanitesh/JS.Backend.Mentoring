@@ -5,7 +5,6 @@ const bookRouter = express.Router();
 
 function router() {
   bookRouter.get('/', async (req, res) => {
-    
     const books = await getAllBooks();
     res.render('books', {
       books: books[0],
@@ -15,7 +14,7 @@ function router() {
   bookRouter.get('/:id', async (req, res) => {
     console.log(req.params.id);
     const book = await getBookById(req.params.id);
-    console.log(book[0]);
+    // console.log(book[0]);
     res.render('book', {
       book: book[0][0],
     });

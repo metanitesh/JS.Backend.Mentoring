@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-
+const jwt = require('jsonwebtoken');
 
 const bookRouter = require('./routers/bookRouter');
 const authorRouter = require('./routers/authorRouter');
@@ -19,12 +19,23 @@ app.use(session({ secret: 'Mount blue session' }));
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-function authenticate (req, res, next) {
-  if (!req.session.user) {
+
+function authenticate(req, res, next) {
+  console.log(req.cookies.JWT);
+  if (!req.cookies.JWT) {
+    console.log('failed');
     res.redirect('/unauthorized');
+  } else {
+    jwt.verify(req.cookies.JWT, 'mountblue', (err, decode) => {
+      if (!decode || !decode.user || !decode.user.id) {
+        res.redirect('/unauthorized');
+      } else {
+        req.user = decode.user;
+        next();
+      }
+    });
   }
-  next();
-};
+}
 
 
 app.use('/books', authenticate, bookRouter());
