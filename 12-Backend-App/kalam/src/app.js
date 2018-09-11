@@ -8,6 +8,8 @@ const bookRouter = require('./routers/bookRouter');
 const authorRouter = require('./routers/authorRouter');
 const authenticateRouter = require('./routers/authenticateRouter');
 
+const bookService = require('./service/bookservice');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -54,4 +56,4 @@ app.get('/unauthorized', (req, res) => {
   });
 });
 
-app.listen(4000, () => console.log('Example app listening on port 3000!'));
+app.listen(4000, () => console.log('Example app listening on port 4000!'));
