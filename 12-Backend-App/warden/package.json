@@ -19,6 +19,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.3.0",
+    "mongoclient": "^1.0.3",
     "mongodb": "^3.1.4"
   },
   "devDependencies": {
