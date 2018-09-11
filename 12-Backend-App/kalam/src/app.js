@@ -7,8 +7,7 @@ const jwt = require('jsonwebtoken');
 const bookRouter = require('./routers/bookRouter');
 const authorRouter = require('./routers/authorRouter');
 const authenticateRouter = require('./routers/authenticateRouter');
-
-const bookService = require('./service/bookservice');
+const searchRoute = require('./routers/searchRoute');
 
 const app = express();
 
@@ -16,6 +15,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret: 'Mount blue session' }));
+
+app.use(express.static('public'));
 
 
 app.set('views', './src/views');
@@ -43,6 +44,8 @@ function authenticate(req, res, next) {
 app.use('/books', authenticate, bookRouter());
 app.use('/authors', authenticate, authorRouter());
 app.use('/authenticate', authenticateRouter());
+app.use('/search', searchRoute());
+
 
 app.get('/', (req, res) => {
   res.render('home', {

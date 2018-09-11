@@ -11,6 +11,7 @@
 
 <body>
     <%- include nav.ejs %>
+    <%- include search.ejs %>
     <%books.forEach(function(book){%>
         <li>
             <h4> TITLE :  <a href="books/<%=book.id%>"> <%=book.title%></a> </h4>
