@@ -62,7 +62,7 @@ function authenticate(req, res, next) {
 
 app.use('/books', authenticate, bookRouter());
 app.use('/authors', authenticate, authorRouter());
-// app.use('/authenticate', authenticateRouter());
+app.use('/authenticate', authenticateRouter());
 app.use('/search', searchRoute());
 
 
